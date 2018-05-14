@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         protobuf-compiler \
         python-dev \
         python-numpy \
+        python-tk \
         python-pip \
         python-setuptools \
         python-scipy && \
@@ -39,9 +40,11 @@ RUN git clone https://github.com/mhasa004/SSTD.git . && \
     cmake .. && \
     make -j"$(nproc)"
 
+RUN cd examples/text && make 
+
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
-ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
+ENV PYTHONPATH $PYCAFFE_ROOT:$CAFFE_ROOT/examples/text:$PYTHONPATH
 ENV PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH
 RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 
-WORKDIR /workspace
+WORKDIR /src

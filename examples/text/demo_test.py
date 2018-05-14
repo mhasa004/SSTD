@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import matplotlib
+matplotlib.use('Agg')
 import cv2
 import glob
 import shutil
@@ -11,13 +12,14 @@ from matplotlib.patches import Polygon
 from threading import Thread, Lock
 from Queue import Queue
 import threading
-def add_path(path):
-    if path not in sys.path:
-        sys.path.insert(0, path)
+
+# def add_path(path):
+#     if path not in sys.path:
+#         sys.path.insert(0, path)
 # Add lib to PYTHONPATH
-this_dir = osp.dirname(__file__)
-lib_path = osp.join(this_dir, 'text')
-add_path(lib_path)
+# this_dir = osp.dirname(__file__)
+# lib_path = osp.join(this_dir, 'text')
+# add_path(lib_path)
 from nms.gpu_nms import gpu_nms
 from nms.cpu_nms import cpu_nms
 import matplotlib.pyplot as plt
@@ -25,11 +27,11 @@ plt.rcParams['figure.figsize'] = (10, 10)
 plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
 
-caffe_root = '../' # this file is expected to be in {caffe_root}/examples
+# caffe_root = '../' # this file is expected to be in {caffe_root}/examples
 import os
-os.chdir(caffe_root)
+# os.chdir(caffe_root)
 import sys
-sys.path.insert(0, 'python')
+# sys.path.insert(0, 'python')
 import caffe
 
 from google.protobuf import text_format
@@ -109,7 +111,7 @@ nets = []
 device_id = 0
 for image_resize in image_resizes:
     model_def = './examples/text/model/deploy.prototxt'
-    model_weights = './examples/text/model/demo.caffemodel'
+    model_weights = '/src/data/models/demo.caffemodel'
     model_modify = './examples/text/model/final_deploy.prototxt'
     lookup = 'step:'
 
